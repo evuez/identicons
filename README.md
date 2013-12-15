@@ -1,4 +1,4 @@
-Github-like identicon generator.
+# Github-like identicon generator.
 
 Example:
 
@@ -6,3 +6,7 @@ Example:
     i.generate()
 
 ![identicon](http://dev.evuez.net/dev/tracker/identicon.png)
+
+## Try it online
+
+http://dev.evuez.net/dev/identicons/?s=JOHNDOE
