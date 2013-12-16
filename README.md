@@ -7,6 +7,6 @@ Example:
 
 ![identicon](http://dev.evuez.net/dev/tracker/identicon.png)
 
-## Try it online
+## Try it!
 
-http://dev.evuez.net/dev/identicons/?s=JOHNDOE
+[http://dev.evuez.net/dev/identicons/?s=JOHNDOE](http://dev.evuez.net/dev/identicons/?s=JOHNDOE)
