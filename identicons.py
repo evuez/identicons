@@ -1,4 +1,4 @@
-import Image, ImageDraw
+from PIL import Image, ImageDraw
 from hashlib import md5
 
 
@@ -10,8 +10,8 @@ SQUARE_SIZE = 10
 class Identicon(object):
 	def __init__(self, str_, background='#000'):
 		"""
-		str_ is the string used to generate the identicon
-		background is the background of the identicon
+		`str_` is the string used to generate the identicon.
+		`background` is the background of the identicon.
 		"""
 		w = h = BORDER_SIZE * 2 + SQUARE_SIZE * GRID_SIZE
 		self.image = Image.new('RGB', (w, h), background)
@@ -20,20 +20,20 @@ class Identicon(object):
 
 	def digest(self, str_):
 		"""
-		returns a md5 numeric hash
+		Returns a md5 numeric hash
 		"""
-		return int(md5(str_).hexdigest(), 16)
+		return int(md5(str_.encode('utf-8')).hexdigest(), 16)
 
 	def calculate(self):
 		"""
-		create the identicon
-		first three bytes are used to generate the color
+		Creates the identicon.
+		First three bytes are used to generate the color,
 		remaining bytes are used to create the drawing
 		"""
 		color = (self.hash & 0xff, self.hash >> 8 & 0xff, self.hash >> 16 & 0xff)
 		self.hash >>= 24 # skip first three bytes
 		square_x = square_y = 0 # init square position
-		for x in xrange(GRID_SIZE * (GRID_SIZE + 1) / 2):
+		for x in range(GRID_SIZE * (GRID_SIZE + 1) // 2):
 			if self.hash & 1:
 				x = BORDER_SIZE + square_x * SQUARE_SIZE
 				y = BORDER_SIZE + square_y * SQUARE_SIZE
@@ -57,9 +57,9 @@ class Identicon(object):
 
 	def generate(self):
 		"""
-		save and show calculated identicon
+		Save and show calculated identicon
 		"""
 		self.calculate()
-		with open('identicon.png', 'w') as out:
+		with open('identicon.png', 'wb') as out:
 			self.image.save(out, 'PNG')
 		self.image.show()
