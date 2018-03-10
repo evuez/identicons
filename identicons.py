@@ -1,12 +1,11 @@
 from PIL import Image, ImageDraw
+from base64 import b64encode
 from hashlib import md5
-import base64
-import StringIO
+from io import BytesIO
 
 GRID_SIZE = 9
 BORDER_SIZE = 10
 SQUARE_SIZE = 10
-
 
 class Identicon(object):
     def __init__(self, str_, background='#000'):
@@ -67,22 +66,17 @@ class Identicon(object):
 
     def base64(self, format='PNG'):
         '''
-        usage:  i = Identicon('xx')
-                print(i.base64())
-        return: this image's base64 code
-        created by: liuzheng712
-        bug report: https://github.com/liuzheng712/identicons/issues
+        Return the identicon's base64
+
+        Created by: liuzheng712
+        Bug report: https://github.com/liuzheng712/identicons/issues
         '''
         self.calculate()
-        fp = StringIO.StringIO()
+
         self.image.encoderinfo = {}
         self.image.encoderconfig = ()
 
-        if format.upper() not in Image.SAVE:
-            Image.init()
-        save_handler = Image.SAVE[format.upper()]
-        try:
-            save_handler(self.image, fp, '')
-        finally:
-            fp.seek(0)
-            return base64.b64encode(fp.read())
+        buff = BytesIO()
+        self.image.save(buff, format=format.upper())
+
+        return b64encode(buff.getvalue())
