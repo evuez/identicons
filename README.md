@@ -2,10 +2,12 @@
 
 Example:
 
-    i = Identicon('johndoe')
-    i.generate()
-    # Or, generate the base64-encoded image:
-    i.base64('PNG')
+```python
+i = Identicon('johndoe')
+i.generate()
+# Or, generate the base64-encoded image:
+i.base64('PNG')
+```
 
 ![identicon](http://dev.evuez.net/dev/tracker/identicon.png)
 
